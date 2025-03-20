@@ -236,6 +236,39 @@
 [%- END %]
 [%- domain = legacy_wildcard_safe(vhost.servername) %]
 
+[%- IF vhost.has_techdomain %]
+   <IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Set warning page for status code 428.
+    Alias "/cpanel-errors" "/var/www/html"
+    ErrorDocument 428 /cpanel-errors/cptechdomain.shtml
+
+    # Mark any request to a technical domain.
+    RewriteCond %{HTTP_HOST} "[% vhost.techdomains_pattern %]" [NC]
+    RewriteRule ^ - [E=IS_TECH_DOMAIN:1]
+
+    # Exclude banner page to avoid loop, as well as misc assets for that page.
+    RewriteCond %{REQUEST_URI} !/(?:cptechdomain\.shtml|img-sys/server_misconfigured\.png|img-sys/powered_by_cpanel\.svg)$ [NC]
+
+    # Must be a technical domain.
+    RewriteCond %{HTTP_HOST} "[% vhost.techdomains_pattern %]" [NC]
+
+    # If the cookie is not set.
+    RewriteCond %{HTTP_COOKIE} !cpanel_tech_domain [NC]
+
+    # Must only target browsers to ensure APIs and CLI tools aren't broken.
+    RewriteCond %{HTTP_USER_AGENT} "(Firefox|Seamonkey|Chrome|Chromium|Safari|OPR|Opera|Edge)" [NC]
+
+    # Return status 428.
+    RewriteRule ^.*$ - [L,R=428,NC]
+  </IfModule>
+
+  <IfModule mod_headers.c>
+    Header always set X-Robots-Tag "noindex, nofollow" env=IS_TECH_DOMAIN
+  </IfModule>
+[%- END %]
+
   # To customize this VirtualHost use an include file at the following location
   # Include "[% vhost_include_base %][% vhost.user %]/[% domain %]/*.conf"
 </VirtualHost>

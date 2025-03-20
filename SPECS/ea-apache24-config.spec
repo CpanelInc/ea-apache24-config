@@ -12,7 +12,7 @@ Summary:       Package that installs Apache 2.4 on CentOS 6
 Name:          %{pkg_name}
 Version:       1.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4546 for more details
-%define release_prefix 193
+%define release_prefix 194
 Release: %{release_prefix}%{?dist}.cpanel
 Group:         System Environment/Daemons
 License:       Apache License 2.0
@@ -42,6 +42,7 @@ Source20:      000-local_template_check
 Source21:      010-suphpconf.pl
 Source22:      011-migrate_extension_to_pecl_ini
 Source23:      php_add_handler_fix.conf
+Source24:      cptechdomain.shtml
 
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires:      ea-webserver
@@ -146,6 +147,9 @@ install %{SOURCE12} %{buildroot}/%{_httpd_bindir}/
 
 install %{SOURCE23} %{buildroot}/%{_httpd_confdir}/
 
+mkdir -p %{buildroot}/var/www/html
+install %{SOURCE24} %{buildroot}/var/www/html/cptechdomain.shtml
+
 %clean
 rm -rf %{buildroot}
 
@@ -154,6 +158,7 @@ rm -rf %{buildroot}
 %files runtime
 %defattr(0640,root,root,0755)
 %attr(0644,root,root) /etc/cpanel/ea4/paths.conf
+%attr(0644,root,root) /var/www/html/cptechdomain.shtml
 %dir %{_localstatedir}/cpanel/templates/apache2_4
 %{_localstatedir}/cpanel/templates/apache2_4/*
 %attr(0711,root,root) %dir %{_localstatedir}/log/apache2/domlogs
@@ -187,6 +192,9 @@ rm -rf %{buildroot}
 %config %attr(0640,root,root) %{_httpd_confdir}/php_add_handler_fix.conf
 
 %changelog
+* Thu Mar 20 2025 Chris Castillo <chris.castillo@webpros.com> - 1.0-194
+- ZC-12629: Handle techdomains in vhost config.
+
 * Thu Mar 14 2024 Julian Brown <julian.brown@cpanel.net> - 1.0-193
 - ZC-11694: Correct problem where changing MPM does not restart Apache
 

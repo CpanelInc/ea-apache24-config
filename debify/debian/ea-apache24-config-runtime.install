@@ -24,4 +24,5 @@ debian/tmp/etc/apt/universal-hooks/pkgs/glibc/Post-Invoke/100-glibc-restartsrv_h
 ./ea4_main.default /var/cpanel/templates/apache2_4
 ./ssl_vhost.default /var/cpanel/templates/apache2_4
 ./vhost.default /var/cpanel/templates/apache2_4
+./cptechdomain.shtml /var/www/html
 debian/tmp/var/cpanel/log/apache2/domlogs /var/log/apache2
