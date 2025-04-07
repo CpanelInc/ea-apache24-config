@@ -7,11 +7,11 @@
         "hooks_base_pre_sys": "%{_sysconfdir}/apt/universal-hooks/multi_pkgs/Pre-Install-Pkgs",
         "_httpd_dir": "/etc/apache2",
         "_httpd_bindir": "%{_httpd_dir}/bin",
-        "_httpd_confdir": "%{_httpd_dir}/conf.d"
-
+        "_httpd_confdir": "%{_httpd_dir}/conf.d",
+        "_sysconfdir": "/etc"
     },
     "no_files_pkgs": {
-         "ea-apache24-config" : "files are in runtime"
+        "ea-apache24-config": "files are in runtime"
     },
     "override_vars": {
         "buildroot": "$DEB_INSTALL_ROOT"
@@ -20,4 +20,3 @@
         "ea-apache24-devel"
     ]
 }
-
