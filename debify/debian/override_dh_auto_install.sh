@@ -61,3 +61,7 @@ mkdir -p debian/tmp/var/cpanel/log/apache2/domlogs
 
 mkdir -p $buildroot/var/www/html
 install $SOURCE24 $buildroot/var/www/html/cptechdomain.shtml
+
+# install log rotation stuff
+mkdir -p $DEB_INSTALL_ROOT${_sysconfdir}/logrotate.d
+install -m 644 -p ${SOURCE25} $DEB_INSTALL_ROOT${_sysconfdir}/logrotate.d/apache

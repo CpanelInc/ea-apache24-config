@@ -1,0 +1,10 @@
+/var/log/cpanel-server-traffic/web/traffic-apache.log {
+    rotate 5
+    daily
+    compress
+    missingok
+    extension traffic-apache.log
+    dateext
+    dateformat %Y-%m-%d-
+    dateyesterday
+}

@@ -12,7 +12,7 @@ Summary:       Package that installs Apache 2.4 on CentOS 6
 Name:          %{pkg_name}
 Version:       1.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4546 for more details
-%define release_prefix 195
+%define release_prefix 196
 Release: %{release_prefix}%{?dist}.cpanel
 Group:         System Environment/Daemons
 License:       Apache License 2.0
@@ -43,6 +43,7 @@ Source21:      010-suphpconf.pl
 Source22:      011-migrate_extension_to_pecl_ini
 Source23:      php_add_handler_fix.conf
 Source24:      cptechdomain.shtml
+Source25:      logrotate
 
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires:      ea-webserver
@@ -150,6 +151,11 @@ install %{SOURCE23} %{buildroot}/%{_httpd_confdir}/
 mkdir -p %{buildroot}/var/www/html
 install %{SOURCE24} %{buildroot}/var/www/html/cptechdomain.shtml
 
+# install log rotation stuff
+%{__mkdir} -p $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
+%{__install} -m 644 -p %{SOURCE25} \
+    $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/apache
+
 %clean
 rm -rf %{buildroot}
 
@@ -191,7 +197,12 @@ rm -rf %{buildroot}
 %config(noreplace) %attr(0640,root,root) %{_httpd_confdir}/includes/errordocument.conf
 %config %attr(0640,root,root) %{_httpd_confdir}/php_add_handler_fix.conf
 
+%config %{_sysconfdir}/logrotate.d/apache
+
 %changelog
+* Mon Apr 07 2025 Chris Castillo <chris.castillo@webpros.com> - 1.0-196
+- ZC-12754: Collect traffic logs.
+
 * Tue Apr 01 2025 Gary Stanley <gary@cpanel.net> - 1.0-195
 - ZC-12113: default mutex over to pthreads
 
