@@ -70,7 +70,6 @@ LogLevel [% IF main.exists('loglevel') %][% main.loglevel.item.loglevel %][% ELS
 SymlinkProtect [% main.symlink_protect.item.symlink_protect %]
 SymlinkProtectRoot [% paths.dir_docroot %]
 [% END -%]
-Mutex pthread default
 
 # You can change this by using WHM, and navigating to the 'Basic WebHost Manager® Setup' -> 'Contact Information' interface.
 ServerAdmin [% serveradmin %]
@@ -203,6 +202,7 @@ RLimitMEM [% main.rlimitmem.item.softrlimitmem %] [% main.rlimitmem.item.maxrlim
 <IfModule rewrite_module>
     RewriteEngine on
     RewriteMap LeechProtect prg:/usr/local/cpanel/bin/leechprotect
+    Mutex file:[% paths.dir_run %] rewrite-map
 </IfModule>
 [% END -%]
 
@@ -391,6 +391,7 @@ Listen [% default_apache_port %]
     </IfModule>
 
     SSLSessionCacheTimeout  300
+    Mutex                   file:[% paths.dir_run %] ssl-cache
     SSLRandomSeed startup builtin
     SSLRandomSeed connect builtin
 
