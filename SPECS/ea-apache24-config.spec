@@ -12,7 +12,7 @@ Summary:       Package that installs Apache 2.4 on CentOS 6
 Name:          %{pkg_name}
 Version:       1.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4546 for more details
-%define release_prefix 196
+%define release_prefix 197
 Release: %{release_prefix}%{?dist}.cpanel
 Group:         System Environment/Daemons
 License:       Apache License 2.0
@@ -72,6 +72,7 @@ Vendor:    cPanel, Inc.
 License:   Apache License 2.0
 Requires:  %{pkg_name} = %{version}
 Requires:  yum-plugin-universal-hooks
+Requires:  ea-cpanel-tools >= 1.0-106
 AutoReq:   no
 BuildArch: noarch
 
@@ -200,6 +201,9 @@ rm -rf %{buildroot}
 %config %{_sysconfdir}/logrotate.d/apache
 
 %changelog
+* Fri Apr 25 2025 Dan Muey <daniel.muey@webpros.com> - 1.0-197
+- ZC-12792: Add minimum version ea-cpanel-tools dep
+
 * Mon Apr 07 2025 Chris Castillo <chris.castillo@webpros.com> - 1.0-196
 - ZC-12754: Collect traffic logs.
 
