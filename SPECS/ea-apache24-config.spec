@@ -12,7 +12,7 @@ Summary:       Package that installs Apache 2.4 on CentOS 6
 Name:          %{pkg_name}
 Version:       1.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4546 for more details
-%define release_prefix 197
+%define release_prefix 198
 Release: %{release_prefix}%{?dist}.cpanel
 Group:         System Environment/Daemons
 License:       Apache License 2.0
@@ -201,6 +201,9 @@ rm -rf %{buildroot}
 %config %{_sysconfdir}/logrotate.d/apache
 
 %changelog
+* Fri Apr 25 2025 Gary Stanley <gary.stanley@webpros.com> - 1.0-198
+- ZC-12790: Fix random pthread crashing
+
 * Fri Apr 25 2025 Dan Muey <daniel.muey@webpros.com> - 1.0-197
 - ZC-12792: Add minimum version ea-cpanel-tools dep
 
