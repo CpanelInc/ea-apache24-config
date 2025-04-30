@@ -71,7 +71,12 @@ Group:     System Environment/Daemons
 Vendor:    cPanel, Inc.
 License:   Apache License 2.0
 Requires:  %{pkg_name} = %{version}
+%if 0%{?rhel} >= 10
+# AlmaLinux will not have this until cpanel is there
+# TODO: https://webpros.atlassian.net/browse/ZC-12807
+%else
 Requires:  yum-plugin-universal-hooks
+%endif
 Requires:  ea-cpanel-tools >= 1.0-106
 AutoReq:   no
 BuildArch: noarch
