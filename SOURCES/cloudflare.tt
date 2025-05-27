@@ -1,0 +1,10 @@
+# Cloudflare IPs (https://api.cloudflare.com/client/v4/ips etag: [% etag %])
+# Automatically generated on [% gen_time %]
+
+<IfModule remoteip_module>
+    RemoteIPHeader CF-Connecting-IP
+    [% FOREACH cidr IN ipv4_cidrs %]RemoteIPTrustedProxy [% cidr %]
+    [% END %]
+    [% FOREACH cidr IN ipv6_cidrs %]RemoteIPTrustedProxy [% cidr %]
+    [% END %]
+</IfModule>

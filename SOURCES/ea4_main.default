@@ -288,6 +288,21 @@ RequestHeader unset cPanel-localhost
 </IfModule>
 [% END -%]
 
+[%#
+    #-------------------#
+    # CLOUDFLARE CONFIG #
+    #-------------------#
+%]
+[% IF !nginx_is_enabled && !file_test( 'f', '/var/cpanel/no_apache_cloudflare' ) -%]
+[%
+        USE ApacheConfig;
+        SET generated = ApacheConfig.generate_cloudflare_config();
+-%]
+[%      IF generated && file_test( 'f', paths.dir_conf_includes _ '/cloudflare.conf' ) -%]
+Include [% paths.dir_conf_includes %]/cloudflare.conf
+[%      END -%]
+[% END -%]
+
 [% IF enable_piped_logs -%]
 <IfModule mod_log_config.c>
     LogFormat "%v:%{local}p [% IF main.exists('logformat_combined') %][% main.logformat_combined.item.logformat_combined %][% ELSE %]%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"[% END %]" combinedvhost

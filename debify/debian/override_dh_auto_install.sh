@@ -10,6 +10,8 @@ mkdir -p $buildroot$_localstatedir/cpanel/templates/apache2_4
 install $SOURCE3 $buildroot$_localstatedir/cpanel/templates/apache2_4/vhost.default
 install $SOURCE4 $buildroot$_localstatedir/cpanel/templates/apache2_4/ssl_vhost.default
 install $SOURCE10 $buildroot$_localstatedir/cpanel/templates/apache2_4/ea4_main.default
+install $SOURCE27 $buildroot$_localstatedir/cpanel/templates/apache2_4/cloudflare.tt
+
 mkdir -p $DEB_INSTALL_ROOT/etc/cpanel/ea4
 install -m 644 $SOURCE0 $DEB_INSTALL_ROOT/etc/cpanel/ea4/paths.conf
 mkdir -p $DEB_INSTALL_ROOT$_localstatedir/log/apache2/domlogs
@@ -65,3 +67,7 @@ install $SOURCE24 $buildroot/var/www/html/cptechdomain.shtml
 # install log rotation stuff
 mkdir -p $DEB_INSTALL_ROOT${_sysconfdir}/logrotate.d
 install -m 644 -p ${SOURCE25} $DEB_INSTALL_ROOT${_sysconfdir}/logrotate.d/apache
+
+# Apache config templates plugin
+mkdir -p $buildroot/usr/local/cpanel/Cpanel/Template/Plugin
+install -m 644 $SOURCE26 $buildroot/usr/local/cpanel/Cpanel/Template/Plugin/ApacheConfig.pm
