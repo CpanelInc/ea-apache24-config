@@ -212,6 +212,7 @@ rm -rf %{buildroot}
 %changelog
 * Mon Jun 02 2025 Dan Muey <daniel.muey@webpros.com> - 1.0-201
 - ZC-12882: Re-order traffic log IPs format to match actual use
+- ZC-12882: switch domlogs from `%h` to `%a` to take advantage of real-ip
 
 * Tue May 27 2025 Chris Castillo <chris.castillo@webpros.com> - 1.0-200
 - ZC-12837: Create Cloudflare mod_remoteip configuration

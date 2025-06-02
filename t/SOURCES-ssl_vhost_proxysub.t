@@ -340,10 +340,10 @@ __DATA__
         "directive": "logformat",
         "items": [
           {
-            "logformat": "\"%h %l %u %t \\\"%r\\\" %>s %b \\\"%{Referer}i\\\" \\\"%{User-Agent}i\\\"\" combined"
+            "logformat": "\"%a %l %u %t \\\"%r\\\" %>s %b \\\"%{Referer}i\\\" \\\"%{User-Agent}i\\\"\" combined"
           },
           {
-            "logformat": "\"%h %l %u %t \\\"%r\\\" %>s %b\" common"
+            "logformat": "\"%a %l %u %t \\\"%r\\\" %>s %b\" common"
           },
           {
             "logformat": "\"%{Referer}i -> %U\" referer"
@@ -474,10 +474,10 @@ __DATA__
       "logformat": {
         "items": [
           {
-            "logformat": "\"%h %l %u %t \\\"%r\\\" %>s %b \\\"%{Referer}i\\\" \\\"%{User-Agent}i\\\"\" combined"
+            "logformat": "\"%a %l %u %t \\\"%r\\\" %>s %b \\\"%{Referer}i\\\" \\\"%{User-Agent}i\\\"\" combined"
           },
           {
-            "logformat": "\"%h %l %u %t \\\"%r\\\" %>s %b\" common"
+            "logformat": "\"%a %l %u %t \\\"%r\\\" %>s %b\" common"
           }
         ],
         "directive": "logformat"
@@ -486,7 +486,7 @@ __DATA__
         "logformat": {
           "items": [
             {
-              "logformat": "\"%h %l %u %t \\\"%r\\\" %>s %b \\\"%{Referer}i\\\" \\\"%{User-Agent}i\\\" %I %O\" combinedio"
+              "logformat": "\"%a %l %u %t \\\"%r\\\" %>s %b \\\"%{Referer}i\\\" \\\"%{User-Agent}i\\\" %I %O\" combinedio"
             }
           ],
           "directive": "logformat"

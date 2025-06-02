@@ -305,13 +305,13 @@ Include [% paths.dir_conf_includes %]/cloudflare.conf
 
 [% IF enable_piped_logs -%]
 <IfModule mod_log_config.c>
-    LogFormat "%v:%{local}p [% IF main.exists('logformat_combined') %][% main.logformat_combined.item.logformat_combined %][% ELSE %]%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"[% END %]" combinedvhost
+    LogFormat "%v:%{local}p [% IF main.exists('logformat_combined') %][% main.logformat_combined.item.logformat_combined %][% ELSE %]%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"[% END %]" combinedvhost
     <IfModule logio_module>
         LogFormat "%v %{%s}t %I .\n%v %{%s}t %O ." bytesvhost
         LogFormat "apache-traffic.log %{%F}t %H %{SSL_PROTOCOL}x %v %I %O %{c}a %a" trafficlog
     </IfModule>
-    LogFormat "%v:%{local}p [% IF main.exists('logformat_combined') %][% main.logformat_combined.item.logformat_combined %][% ELSE %]%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"[% END %]" combined
-    LogFormat "%v:%{local}p [% IF main.exists('logformat_common') %][% main.logformat_common.item.logformat_common %][% ELSE %]%h %l %u %t \"%r\" %>s %b[% END %]" common
+    LogFormat "%v:%{local}p [% IF main.exists('logformat_combined') %][% main.logformat_combined.item.logformat_combined %][% ELSE %]%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"[% END %]" combined
+    LogFormat "%v:%{local}p [% IF main.exists('logformat_common') %][% main.logformat_common.item.logformat_common %][% ELSE %]%a %l %u %t \"%r\" %>s %b[% END %]" common
     LogFormat "%{Referer}i -> %U" referer
     LogFormat "%{User-agent}i" agent
 
@@ -337,8 +337,8 @@ Include [% paths.dir_conf_includes %]/cloudflare.conf
 [% ELSE %]
 <IfModule log_config_module>
 [% IF main.exists('logformat_combined') || main.exists('logformat_common') %]
-    LogFormat "[% IF main.exists('logformat_combined') %][% main.logformat_combined.item.logformat_combined %][% ELSE %]%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"[% END %]" combined
-    LogFormat "[% IF main.exists('logformat_common') %][% main.logformat_common.item.logformat_common %][% ELSE %]%h %l %u %t \"%r\" %>s %b[% END %]" common
+    LogFormat "[% IF main.exists('logformat_combined') %][% main.logformat_combined.item.logformat_combined %][% ELSE %]%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"[% END %]" combined
+    LogFormat "[% IF main.exists('logformat_common') %][% main.logformat_common.item.logformat_common %][% ELSE %]%a %l %u %t \"%r\" %>s %b[% END %]" common
     LogFormat "%{Referer}i -> %U" referer
     LogFormat "%{User-agent}i" agent
 [%  ELSIF main.ifmodulemodlogconfigc.logformat.items.length -%]
@@ -349,8 +349,8 @@ Include [% paths.dir_conf_includes %]/cloudflare.conf
     LogFormat "%{Referer}i -> %U" referer
     LogFormat "%{User-agent}i" agent
     # NOTE: "combined" and "common" are required by WHM
-    LogFormat "%h %l %u %t \"%r\" %>s %b" common
-    LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
+    LogFormat "%a %l %u %t \"%r\" %>s %b" common
+    LogFormat "%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
 [%  END -%]
     <IfModule logio_module>
         LogFormat "%{%F}t %H %{SSL_PROTOCOL}x %v %I %O %{c}a %a" trafficlog
