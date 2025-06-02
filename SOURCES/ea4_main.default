@@ -308,7 +308,7 @@ Include [% paths.dir_conf_includes %]/cloudflare.conf
     LogFormat "%v:%{local}p [% IF main.exists('logformat_combined') %][% main.logformat_combined.item.logformat_combined %][% ELSE %]%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"[% END %]" combinedvhost
     <IfModule logio_module>
         LogFormat "%v %{%s}t %I .\n%v %{%s}t %O ." bytesvhost
-        LogFormat "apache-traffic.log %{%F}t %H %{SSL_PROTOCOL}x %v %I %O %a %{c}a" trafficlog
+        LogFormat "apache-traffic.log %{%F}t %H %{SSL_PROTOCOL}x %v %I %O %{c}a %a" trafficlog
     </IfModule>
     LogFormat "%v:%{local}p [% IF main.exists('logformat_combined') %][% main.logformat_combined.item.logformat_combined %][% ELSE %]%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"[% END %]" combined
     LogFormat "%v:%{local}p [% IF main.exists('logformat_common') %][% main.logformat_common.item.logformat_common %][% ELSE %]%h %l %u %t \"%r\" %>s %b[% END %]" common
@@ -353,7 +353,7 @@ Include [% paths.dir_conf_includes %]/cloudflare.conf
     LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
 [%  END -%]
     <IfModule logio_module>
-        LogFormat "%{%F}t %H %{SSL_PROTOCOL}x %v %I %O %a %{c}a" trafficlog
+        LogFormat "%{%F}t %H %{SSL_PROTOCOL}x %v %I %O %{c}a %a" trafficlog
         CustomLog /var/log/cpanel-server-traffic/web/traffic-apache.log trafficlog env=!isproxyrequest
     </IfModule>
 
