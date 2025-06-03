@@ -241,7 +241,6 @@ __DATA__
   "service": "apache",
   "sections": {
     "mainifmodulealiasmodule": "main.<ifmodule  alias_module>",
-    "ifmodulemodlogconfigc": "<ifmodule  mod_log_config.c>",
     "maindirectoryusrlocalapachehtdocs": "main.<directory  \"/usr/local/apache/htdocs\">",
     "mainifmoduleitkc": "main.<ifmodule  itk.c>",
     "ifmoduleitkc": "<ifmodule  itk.c>",
@@ -252,12 +251,8 @@ __DATA__
     "ifmodulelogiomodule": "<ifmodule  logio_module>",
     "ifmodulealiasmodule": "<ifmodule  alias_module>",
     "mainfilesht": "main.<files  \".ht*\">",
-    "mainifmodulemodlogconfigc": "main.<ifmodule  mod_log_config.c>",
     "ifmodulepreforkc": "<ifmodule  prefork.c>",
-    "ifmodulelogconfigmodule": "<ifmodule  log_config_module>",
     "mainifmodulemimemodule": "main.<ifmodule  mime_module>",
-    "mainifmodulelogconfigmodule": "main.<ifmodule  log_config_module>",
-    "mainifmodulelogconfigmoduleifmodulelogiomodule": "main.<ifmodule  log_config_module>.<ifmodule  logio_module>",
     "filesht": "<files  \".ht*\">",
     "ifmoduleworkerc": "<ifmodule  worker.c>",
     "directoryusrlocalapachecgibin": "<directory  \"/usr/local/apache/cgi-bin\">",
@@ -335,40 +330,6 @@ __DATA__
         ]
       }
     },
-    "ifmodulemodlogconfigc": {
-      "logformat": {
-        "directive": "logformat",
-        "items": [
-          {
-            "logformat": "\"%a %l %u %t \\\"%r\\\" %>s %b \\\"%{Referer}i\\\" \\\"%{User-Agent}i\\\"\" combined"
-          },
-          {
-            "logformat": "\"%a %l %u %t \\\"%r\\\" %>s %b\" common"
-          },
-          {
-            "logformat": "\"%{Referer}i -> %U\" referer"
-          },
-          {
-            "logformat": "\"%{User-agent}i\" agent"
-          }
-        ]
-      },
-      "customlog": {
-        "items": [
-          {
-            "format": "common",
-            "target": "logs/access_log"
-          }
-        ],
-        "directive": "customlog"
-      }
-    },
-    "mainifmodulemodlogconfigc": {
-      "directive": "<ifmodule",
-      "item": {
-        "ifmodule": "mod_log_config.c"
-      }
-    },
     "errorlog": {
       "item": {
         "errorlog": "\"logs/error_log\""
@@ -408,12 +369,6 @@ __DATA__
       ],
       "directive": "scriptalias"
     },
-    "mainifmodulelogconfigmoduleifmodulelogiomodule": {
-      "directive": "<ifmodule",
-      "item": {
-        "ifmodule": "logio_module"
-      }
-    },
     "filesht": {
       "require": {
         "item": {
@@ -449,48 +404,10 @@ __DATA__
       },
       "directive": "serveradmin"
     },
-    "mainifmodulelogconfigmodule": {
-      "directive": "<ifmodule",
-      "item": {
-        "ifmodule": "log_config_module"
-      }
-    },
     "mainifmodulemimemodule": {
       "directive": "<ifmodule",
       "item": {
         "ifmodule": "mime_module"
-      }
-    },
-    "ifmodulelogconfigmodule": {
-      "customlog": {
-        "items": [
-          {
-            "format": "common",
-            "target": "\"logs/access_log\""
-          }
-        ],
-        "directive": "customlog"
-      },
-      "logformat": {
-        "items": [
-          {
-            "logformat": "\"%a %l %u %t \\\"%r\\\" %>s %b \\\"%{Referer}i\\\" \\\"%{User-Agent}i\\\"\" combined"
-          },
-          {
-            "logformat": "\"%a %l %u %t \\\"%r\\\" %>s %b\" common"
-          }
-        ],
-        "directive": "logformat"
-      },
-      "ifmodulelogiomodule": {
-        "logformat": {
-          "items": [
-            {
-              "logformat": "\"%a %l %u %t \\\"%r\\\" %>s %b \\\"%{Referer}i\\\" \\\"%{User-Agent}i\\\" %I %O\" combinedio"
-            }
-          ],
-          "directive": "logformat"
-        }
       }
     },
     "extendedstatus": {
@@ -871,16 +788,6 @@ __DATA__
           ]
         }
       },
-      "ifmodulelogconfigmodule": {
-        "ifmodulelogiomodule": {
-          "customlog": [
-            {
-              "format": "\"%{%s}t %I .\\n%{%s}t %O .\"",
-              "target": "/usr/local/apache/domlogs/mock.server.tld-bytes_log"
-            }
-          ]
-        }
-      },
       "rewritecond": [
         {
           "rewritecond": "%{HTTP_HOST} =autodiscover.mock.server.tld"
@@ -1177,16 +1084,6 @@ __DATA__
           "url": "/cgi-bin/"
         }
       ],
-      "ifmodulelogconfigmodule": {
-        "ifmodulelogiomodule": {
-          "customlog": [
-            {
-              "target": "/usr/local/apache/domlogs/lawfulevil.tld-bytes_log",
-              "format": "\"%{%s}t %I .\\n%{%s}t %O .\""
-            }
-          ]
-        }
-      },
       "ifmoduleincludemodule": {
         "directoryhomelawfulevilpublichtml": {
           "ssilegacyexprparser": [
@@ -1316,16 +1213,6 @@ __DATA__
         }
       },
       "optimize_htaccess": null,
-      "ifmodulelogconfigmodule": {
-        "ifmodulelogiomodule": {
-          "customlog": [
-            {
-              "target": "/usr/local/apache/domlogs/mail.lawfulevil.tld-bytes_log",
-              "format": "\"%{%s}t %I .\\n%{%s}t %O .\""
-            }
-          ]
-        }
-      },
       "log_servername": "mail.lawfulevil.tld",
       "serveradmin": "webmaster@mail.lawfulevil.tld",
       "phpopenbasedirprotect": 1

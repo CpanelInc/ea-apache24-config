@@ -341,10 +341,6 @@ Include [% paths.dir_conf_includes %]/cloudflare.conf
     LogFormat "[% IF main.exists('logformat_common') %][% main.logformat_common.item.logformat_common %][% ELSE %]%a %l %u %t \"%r\" %>s %b[% END %]" common
     LogFormat "%{Referer}i -> %U" referer
     LogFormat "%{User-agent}i" agent
-[%  ELSIF main.ifmodulemodlogconfigc.logformat.items.length -%]
-[%      FOREACH dir IN main.ifmodulemodlogconfigc.logformat.items -%]
-    LogFormat [% dir.logformat %]
-[%      END -%]
 [%  ELSE -%]
     LogFormat "%{Referer}i -> %U" referer
     LogFormat "%{User-agent}i" agent
@@ -357,14 +353,7 @@ Include [% paths.dir_conf_includes %]/cloudflare.conf
         CustomLog /var/log/cpanel-server-traffic/web/traffic-apache.log trafficlog env=!isproxyrequest
     </IfModule>
 
-    # access_log format can be set in WHM under 'Basic WebHost Manager® Setup'
-[%  IF main.ifmodulemodlogconfigc.customlog.items.length -%]
-[%      FOREACH dir IN main.ifmodulemodlogconfigc.customlog.items -%]
-    CustomLog [% dir.target %] [% dir.format %] env=!isproxyrequest
-[%      END -%]
-[%  ELSE -%]
     CustomLog logs/access_log [% logstyle %] env=!isproxyrequest
-[%  END -%]
 </IfModule>
 [% END %]
 
