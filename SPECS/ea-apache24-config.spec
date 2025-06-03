@@ -12,7 +12,7 @@ Summary:       Package that installs Apache 2.4 on CentOS 6
 Name:          %{pkg_name}
 Version:       1.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4546 for more details
-%define release_prefix 199
+%define release_prefix 200
 Release: %{release_prefix}%{?dist}.cpanel
 Group:         System Environment/Daemons
 License:       Apache License 2.0
@@ -44,6 +44,8 @@ Source22:      011-migrate_extension_to_pecl_ini
 Source23:      php_add_handler_fix.conf
 Source24:      cptechdomain.shtml
 Source25:      logrotate
+Source26:      ApacheConfig.pm
+Source27:      cloudflare.tt
 
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires:      ea-webserver
@@ -88,6 +90,7 @@ mkdir -p %{buildroot}%{_localstatedir}/cpanel/templates/apache2_4
 install %{SOURCE3} %{buildroot}%{_localstatedir}/cpanel/templates/apache2_4/vhost.default
 install %{SOURCE4} %{buildroot}%{_localstatedir}/cpanel/templates/apache2_4/ssl_vhost.default
 install %{SOURCE10} %{buildroot}%{_localstatedir}/cpanel/templates/apache2_4/ea4_main.default
+install %{SOURCE27} %{buildroot}%{_localstatedir}/cpanel/templates/apache2_4/cloudflare.tt
 
 mkdir -p $RPM_BUILD_ROOT/etc/cpanel/ea4
 %if 0%{?rhel} >= 7
@@ -157,6 +160,11 @@ install %{SOURCE24} %{buildroot}/var/www/html/cptechdomain.shtml
 %{__install} -m 644 -p %{SOURCE25} \
     $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/apache
 
+# ApacheConfig Template Plugin
+%{__mkdir_p} %{buildroot}/usr/local/cpanel/Cpanel/Template/Plugin
+%{__install} -m 644 -p %{SOURCE26} \
+    %{buildroot}/usr/local/cpanel/Cpanel/Template/Plugin/ApacheConfig.pm
+
 %clean
 rm -rf %{buildroot}
 
@@ -166,6 +174,7 @@ rm -rf %{buildroot}
 %defattr(0640,root,root,0755)
 %attr(0644,root,root) /etc/cpanel/ea4/paths.conf
 %attr(0644,root,root) /var/www/html/cptechdomain.shtml
+%attr(0644,root,root) /usr/local/cpanel/Cpanel/Template/Plugin/ApacheConfig.pm
 %dir %{_localstatedir}/cpanel/templates/apache2_4
 %{_localstatedir}/cpanel/templates/apache2_4/*
 %attr(0711,root,root) %dir %{_localstatedir}/log/apache2/domlogs
@@ -201,6 +210,9 @@ rm -rf %{buildroot}
 %config %{_sysconfdir}/logrotate.d/apache
 
 %changelog
+* Tue May 27 2025 Chris Castillo <chris.castillo@webpros.com> - 1.0-200
+- ZC-12837: Create Cloudflare mod_remoteip configuration
+
 * Wed May 07 2025 Julian Brown <julian.brown@webpros.com> - 1.0-199
 - ZC-12824: Fix traffic logs when not piped logs on Apache
 
