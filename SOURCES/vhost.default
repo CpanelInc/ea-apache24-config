@@ -67,7 +67,7 @@
       CustomLog [% paths.dir_domlogs %]/[% wildcard_safe(vhost.log_servername) %]-bytes_log "%{%s}t %I .\n%{%s}t %O ." env=!isproxyrequest
     </IfModule>
     <IfModule logio_module>
-      LogFormat "%{%F}t %H %{SSL_PROTOCOL}x %v %I %O %a %{c}a" trafficlog
+      LogFormat "%{%F}t %H %{SSL_PROTOCOL}x %v %I %O %{c}a %a" trafficlog
       CustomLog /var/log/cpanel-server-traffic/web/traffic-apache.log trafficlog env=!isproxyrequest
     </IfModule>
   </IfModule>

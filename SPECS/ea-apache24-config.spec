@@ -12,7 +12,7 @@ Summary:       Package that installs Apache 2.4 on CentOS 6
 Name:          %{pkg_name}
 Version:       1.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4546 for more details
-%define release_prefix 200
+%define release_prefix 201
 Release: %{release_prefix}%{?dist}.cpanel
 Group:         System Environment/Daemons
 License:       Apache License 2.0
@@ -210,6 +210,10 @@ rm -rf %{buildroot}
 %config %{_sysconfdir}/logrotate.d/apache
 
 %changelog
+* Mon Jun 02 2025 Dan Muey <daniel.muey@webpros.com> - 1.0-201
+- ZC-12882: Re-order traffic log IPs format to match actual use
+- ZC-12882: switch domlogs from `%h` to `%a` to take advantage of real-ip
+
 * Tue May 27 2025 Chris Castillo <chris.castillo@webpros.com> - 1.0-200
 - ZC-12837: Create Cloudflare mod_remoteip configuration
 
