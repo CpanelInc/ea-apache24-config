@@ -602,9 +602,9 @@ ProxyPass /cpanelwebcall/ http://127.0.0.1:2082/cpanelwebcall/ max=1 retry=0
 <VirtualHost[% FOREACH server_ip IN ip_block -%] [% "${server_ip}:${configured.main_port}" %][% END -%]>
     ServerName proxy-subdomains-vhost.localhost
 [%          IF autodiscover_proxy_subdomains -%]
-    ServerAlias cpanel.* whm.* webmail.* webdisk.* cpcalendars.* cpcontacts.* autodiscover.* autoconfig.*
+    ServerAlias cpanel.* whm.* webmail.* webdisk.* cpcalendars.* cpcontacts.* autodiscover.* autoconfig.*[% IF is_wp_squared %] wp.* wp2.*[% END %]
 [%          ELSE -%]
-    ServerAlias cpanel.* whm.* webmail.* webdisk.* cpcalendars.* cpcontacts.*
+    ServerAlias cpanel.* whm.* webmail.* webdisk.* cpcalendars.* cpcontacts.*[% IF is_wp_squared %] wp.* wp2.*[% END %]
 [%          END -%]
 
     DocumentRoot [% paths.dir_docroot %]
@@ -744,9 +744,9 @@ ProxyPass /cpanelwebcall/ http://127.0.0.1:2082/cpanelwebcall/ max=1 retry=0
 <VirtualHost[% FOREACH server_ip IN ip_block -%] [% "${server_ip}:${configured.main_port_ssl}" %][% END -%]>
     ServerName [% wildcard_safe(servername) %]
 [%          IF autodiscover_proxy_subdomains %]
-    ServerAlias cpanel.* whm.* webmail.* webdisk.* cpcalendars.* cpcontacts.* autodiscover.* autoconfig.*
+    ServerAlias cpanel.* whm.* webmail.* webdisk.* cpcalendars.* cpcontacts.* autodiscover.* autoconfig.*[% IF is_wp_squared %] wp.* wp2.*[% END %]
 [%          ELSE %]
-    ServerAlias cpanel.* whm.* webmail.* webdisk.* cpcalendars.* cpcontacts.*
+    ServerAlias cpanel.* whm.* webmail.* webdisk.* cpcalendars.* cpcontacts.*[% IF is_wp_squared %] wp.* wp2.*[% END %]
 [%          END %]
     DocumentRoot [% paths.dir_docroot %]
     ServerAdmin [% serveradmin %]
