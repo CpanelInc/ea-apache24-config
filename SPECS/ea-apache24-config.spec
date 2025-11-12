@@ -12,7 +12,7 @@ Summary:       Package that installs Apache 2.4 on CentOS 6
 Name:          %{pkg_name}
 Version:       1.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4546 for more details
-%define release_prefix 201
+%define release_prefix 202
 Release: %{release_prefix}%{?dist}.cpanel
 Group:         System Environment/Daemons
 License:       Apache License 2.0
@@ -210,6 +210,9 @@ rm -rf %{buildroot}
 %config %{_sysconfdir}/logrotate.d/apache
 
 %changelog
+* Fri Oct 24 2025 Brian Mendoza <brian.mendoza@webpros.com> - 1.0-202
+- EA4-140: Add wp and wp2 service subdomains to conf on wp2 servers
+
 * Mon Jun 02 2025 Dan Muey <daniel.muey@webpros.com> - 1.0-201
 - ZC-12882: Re-order traffic log IPs format to match actual use
 - ZC-12882: switch domlogs from `%h` to `%a` to take advantage of real-ip
