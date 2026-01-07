@@ -229,7 +229,11 @@ RLimitMEM [% main.rlimitmem.item.softrlimitmem %] [% main.rlimitmem.item.maxrlim
 # You can change this by using WHM, and updating the 'Tweak Settings' -> 'System' -> 'Allow server-info' option.
 <IfModule status_module>
     # This is used by the WHM 'Apache Status' application
+[% IF whm_server_status_key -%]
+    <Location /[% whm_server_status_key %]>
+[% ELSE -%]
     <Location /whm-server-status>
+[% END -%]
         SetHandler server-status
         Order deny,allow
         Deny from all
