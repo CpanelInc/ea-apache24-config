@@ -12,7 +12,7 @@ Summary:       Package that installs Apache 2.4 on CentOS 6
 Name:          %{pkg_name}
 Version:       1.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4546 for more details
-%define release_prefix 204
+%define release_prefix 205
 Release: %{release_prefix}%{?dist}.cpanel
 Group:         System Environment/Daemons
 License:       Apache License 2.0
@@ -210,6 +210,9 @@ rm -rf %{buildroot}
 %config %{_sysconfdir}/logrotate.d/apache
 
 %changelog
+* Wed Aug 05 2026 Dan Muey <daniel.muey@webpros.com> - 1.0-205
+- EA4-294: Improve 428 technical-domain page query string behavior
+
 * Wed Jan 07 2026 Jared Wright <jared.wright@webpros.com> - 1.0-204
 - CPANEL-46581: Add obfuscation for whm-server-status endpoint.
 

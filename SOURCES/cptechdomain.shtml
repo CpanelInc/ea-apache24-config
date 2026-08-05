@@ -269,8 +269,20 @@
                     expires = '; expires=' + d.toUTCString();
                 }
                 document.cookie = 'cpanel_tech_domain=1' + expires + '; path=/';
-                // Reload the same URL the user tried originally
-                window.location = '<!--#echo var="REQUEST_URI" -->';
+
+                // Reload the same URL the user tried originally.
+                //
+                // The 428 is returned in place (mod_rewrite R=428 is not a redirect), so the
+                // document URL is still the URL the user asked for -- just re-request it now
+                // that the cookie is set.
+                //
+                // Do NOT template REQUEST_URI in here. #echo defaults to encoding="entity",
+                // which turns '&' into '&amp;'. That is never decoded inside a JavaScript
+                // string literal, so every query parameter after the first arrives renamed
+                // (foo becomes amp;foo). encoding="none" is not an alternative either: entity
+                // encoding does not escape "'", so echoing the raw request line into this
+                // single-quoted string is an XSS vector.
+                window.location.reload();
             }
         </script>
     </section>
