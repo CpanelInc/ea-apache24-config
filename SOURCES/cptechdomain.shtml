@@ -269,8 +269,11 @@
                     expires = '; expires=' + d.toUTCString();
                 }
                 document.cookie = 'cpanel_tech_domain=1' + expires + '; path=/';
-                // Reload the same URL the user tried originally
-                window.location = '<!--#echo var="REQUEST_URI" -->';
+                // Reload the same URL the user tried originally. The 428 is returned in place,
+                // so the document URL is still it. Do not template REQUEST_URI in here: #echo
+                // entity encoding turns '&' into '&amp;', which a JS string never decodes, and
+                // encoding="none" would be an XSS vector.
+                window.location.reload();
             }
         </script>
     </section>
@@ -279,7 +282,7 @@
             <a href="http://cpanel.com/?utm_source=cpanelwhm&utm_medium=cplogo&utm_content=logolink&utm_campaign=<!--#echo var='code' -->referral"
                 target="cpanel" title="cPanel, Inc.">
                 <img src="/img-sys/powered_by_cpanel.svg" height="20" alt="cPanel, Inc." />
-                <div class="copyright">Copyright © 2025 cPanel, Inc.</div>
+                <div class="copyright">Copyright © 2026 cPanel, Inc.</div>
             </a>
         </div>
     </footer>
